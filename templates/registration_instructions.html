@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Registration: {{ username }}</h2>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="video-feed-container">
+                                <img src="{{ url_for('video_feed_registration') }}" alt="Registration Video Feed">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h4 class="mb-3">Registration Steps</h4>
+
+                                    <!-- ✅ Progress bar -->
+                                    <div class="progress mb-3">
+                                        <div id="progress-bar" class="progress-bar" role="progressbar"
+                                            style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+                                            aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                    <p id="progress-text" class="text-center mb-3">Starting...</p>
+
+                                    <!-- ✅ Live instruction text -->
+                                    <div class="alert alert-info" id="current-instruction-box">
+                                        <strong>Current Instruction:</strong>
+                                        <span id="current-instruction">{{ current_instruction or "Waiting..." }}</span>
+                                    </div>
+
+                                    <!-- ✅ Dynamic step list -->
+                                    <ol class="list-group list-group-numbered" id="steps-list">
+                                        <!-- Will be filled by JS -->
+                                    </ol>
+
+                                    {% if complete %}
+                                    <div class="alert alert-success mt-3">
+                                        Registration complete! Click below to finish.
+                                    </div>
+                                    <a href="{{ url_for('registration_complete') }}" class="btn btn-success w-100">
+                                        Complete Registration
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ✅ Add auto-refresh logic -->
+<script>
+
+    function fetchStatus() {
+        fetch('/registration_status')
+            .then(response => response.json())
+            .then(data => {
+                const step = data.step;
+                const total = data.total;
+                const movement = data.movement;
+                const done = data.done;
+
+                const statusDiv = document.getElementById("movement-status");
+                if (done) {
+                    statusDiv.innerText = "✅ Registration complete! Redirecting...";
+                    setTimeout(() => {
+                        window.location.href = "/registration_complete";
+                    }, 2000);  // Redirect after 2 seconds
+                } else {
+                    statusDiv.innerText = `Step ${step} of ${total}: Please ${movement}`;
+                }
+            });
+    }
+
+    setInterval(fetchStatus, 1000);
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    updateRegistrationStatus();  // Start polling
+});
+
+// In your registration_instructions.html
+function updateRegistrationStatus() {
+    fetch('/get_registration_status')
+        .then(response => response.json())
+        .then(data => {
+            // Update progress bar
+            document.getElementById('progress-bar').style.width = `${data.percentage}%`;
+            document.getElementById('progress-text').textContent = 
+                `Step ${data.current_step} of ${data.total_steps} (${data.percentage}%)`;
+            
+            // Update current instruction
+            document.getElementById('current-instruction').textContent = data.current_instruction;
+            
+            // Update steps list
+            const stepsList = document.getElementById('steps-list');
+            stepsList.innerHTML = '';
+            data.steps.forEach((step, index) => {
+                const li = document.createElement('li');
+                li.className = `list-group-item ${step.completed ? 'completed' : ''} 
+                               ${index === data.current_step - 1 ? 'active' : ''}`;
+                li.innerHTML = `
+                    <span class="step-status">${step.completed ? '✓' : '•'}</span>
+                    ${step.name}
+                    ${step.completed ? '<span class="badge bg-success float-end">Done</span>' : ''}
+                `;
+                stepsList.appendChild(li);
+            });
+            
+            // Handle completion
+            if (data.complete) {
+                window.location.href = '/registration_complete';
+            } else {
+                setTimeout(updateRegistrationStatus, 1000);
+            }
+        });
+}
+
+// Start polling when page loads
+document.addEventListener('DOMContentLoaded', updateRegistrationStatus);
+</script>
+
+<style>
+    .completed {
+        background-color: #d4edda;
+    }
+
+    .active {   
+        background-color: #cce5ff;
+        font-weight: bold;
+    }
+
+    .step-status {
+        margin-right: 10px;
+        font-weight: bold;
+    }
+
+    #progress-bar {
+        transition: width 0.5s ease;
+    }
+
+    .video-feed-container {
+        width: 100%;
+        max-width: 640px; /* Match your video width */
+        margin: 0 auto;
+    }
+
+    .video-feed-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+</style>
+
+{% endblock %}

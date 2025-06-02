@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card p-4 text-center">
+            <div class="card-body">
+                <h2 class="mb-4">Registration Complete!</h2>
+                <div class="alert alert-success mb-4">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <strong>{{ username }}</strong> has been successfully registered.
+                </div>
+                <p class="mb-4">You can now use face authentication to login.</p>
+                <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">
+                    Proceed to Login
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

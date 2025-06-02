@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    body {
+        background: url('{{ url_for("static", filename="images/background.png") }}') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .container {
+        background-color: rgba(0, 0, 0, 0.3); /* Much lighter transparency */
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 0 30px rgba(114, 9, 183, 0.6); /* Softer purple glow */
+        backdrop-filter: blur(6px); /* Optional: adds a glassmorphism blur effect */
+    }
+    
+</style>
+
+<div class="container text-center mt-5 text-neon">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" 
+         alt="SeamlessPass Logo" 
+         style="width: 280px; filter: drop-shadow(0 0 15px #7209b7);"
+         class="my-4">
+    
+    <h1 class="display-4 glow-text mb-4">SeamlessPass</h1>
+    <p class="lead">Next-Gen Face Authentication</p>
+
+    <div class="d-grid gap-3 col-md-6 mx-auto mt-5">
+        <a href="{{ url_for('register') }}" class="btn neon-btn-pink btn-lg">Register New User</a>
+        <a href="{{ url_for('login') }}" class="btn neon-btn-cyan btn-lg">Login</a>
+    </div>
+</div>
+{% endblock %}

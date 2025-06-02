@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card p-4">
+            <h2 class="text-center mb-4">Face Authentication</h2>
+            
+
+<script>
+    function checkLoginStatus() {
+        fetch("/login_status")
+            .then(response => response.json())
+            .then(data => {
+                if (data.authenticated) {
+                    // Show "Completed!" button
+                    document.getElementById("completed-button").style.display = "block";
+                    document.getElementById("completed-button").dataset.username = data.username;
+                    document.getElementById("authenticating-message").style.display = "none";
+                } else {
+                    setTimeout(checkLoginStatus, 1000); // keep checking
+                }
+            });
+    }
+
+    checkLoginStatus();  // start polling
+</script>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="camera-container mb-4">
+                        <img src="{{ url_for('video_feed_authentication') }}" width="100%" class="img-fluid">
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card instruction-card p-4 h-100">
+                        {% if not authenticating %}
+                        <h4 class="mb-4">Login Instructions</h4>
+                        <div class="alert alert-info">
+                            <strong>Please follow these steps:</strong>
+                            <ol class="mt-2">
+                                <li>Position yourself in front of the camera</li>
+                                <li>Make sure your face is clearly visible</li>
+                                <li>Look directly at the camera</li>
+                                <li>Wait for authentication</li>
+                            </ol>
+                        </div>
+                        
+                        <form method="POST">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                                Start Authentication
+                            </button>
+                        </form>
+                        {% else %}
+<div id="authenticating-message">
+    <h4 class="mb-4">Authenticating...</h4>
+    <div class="alert alert-info">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2 mb-0">Please look directly at the camera.</p>
+    </div>
+    <a href="{{ url_for('logout') }}" class="btn btn-outline-secondary w-100">
+        Cancel
+    </a>
+</div>
+
+<!-- Completed button (initially hidden) -->
+<form id="completed-button" method="GET" action="/login_success" style="display: none;">
+    <input type="hidden" name="username" value="">
+    <button type="submit" class="btn btn-success btn-lg w-100 mt-3">
+        Completed!
+    </button>
+</form>
+
+<script>
+    // Populate hidden input with username when button appears
+    setInterval(() => {
+        const btn = document.getElementById("completed-button");
+        if (btn.style.display === "block") {
+            const username = btn.dataset.username;
+            btn.querySelector("input[name='username']").value = username;
+        }
+    }, 500);
+</script>
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
