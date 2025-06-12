@@ -87,13 +87,13 @@ I've got the structure from GitHub: https://github.com/hairymax/Face-AntiSpoofin
 
 ### Face Detection: YOLOv5 
 
-![[results.png]]
+![Result](yolov5/runs/train/face-detector-from-scratch14/results.png)
 
 The training results from the custom YOLOv5 model indicate that while the raw(no pretrained weights used) performance metrics—such as mAP and recall—are relatively modest, they show a consistent upward trend throughout the training process. Specifically, precision, recall, and mAP (both at 0.5 and 0.5:0.95 thresholds) are gradually improving, suggesting that the model is learning useful representations despite the absence of classification loss (as expected for a single-class detector like face detection).
 
 Although the standalone accuracy of the YOLOv5 model may not seem sufficient on its own, it serves as the first stage in a multi-model pipeline. The full system leverages additional components such as Dlib and MediaPipe for detailed landmark localization, eye/gaze detection, and gesture analysis—effectively compensating for YOLO’s limitations. This collaborative pipeline ensures robust performance in real-world face verification and liveness detection, even when the detection model operates with relatively low confidence in isolation.
 
-![[F1_curve.png]]
+![F1_Curve](yolov5/runs/train/face-detector-from-scratch14/F1_curve.png)
 
 ### Dlib: Face Landmarks
 
