@@ -156,7 +156,9 @@ Lastly, Those are my accuracy plots:
 During the initial training phase of the anti-spoofing model, noticeable fluctuations were observed in the accuracy and validation performance, so I've decided the change the learning rate for better accuracy.
 
 This is my plot for learning rate:
+
 ![Learning_Rate](screenshots/learning_rate.png)
+
 
 #### Flow Chart of This Model
 
