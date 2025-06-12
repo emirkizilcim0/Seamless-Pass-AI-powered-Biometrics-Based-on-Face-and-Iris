@@ -141,26 +141,28 @@ To ensure robust liveness detection during authentication, a custom anti-spoofin
 
 The model was trained using a **convolutional neural network** optimized with **Stochastic Gradient Descent (SGD)**. Due to the size and diversity of the dataset, SGD was preferred over optimizers like Adam to avoid memory inefficiencies and improve convergence stability. The classification task involved binary or multi-class labels to distinguish between real faces (`0`) and various spoof types (`1`, `2`, `3` for print attacks, and `7`, `8`, `9` for replay attacks). Throughout training, the model achieved strong performance, with an accuracy of **86.94%**, **AUC-ROC of 0.9758**, and an F1 score of **0.8776**. These metrics indicate that the model is capable of effectively identifying spoofed attempts even in challenging conditions.
 
-![[Screenshot 2025-05-25 164946.png]]
+![AUC_ROC_Curve](screenshots/auc_roc_curve.png)
 
 Evaluation through ROC curves and confusion matrices further demonstrated the model’s ability to separate live and spoof classes with high confidence. While the anti-spoofing model may not perform perfectly in isolation, it plays a crucial role within the **Seamless-Pass pipeline**, acting as a safeguard against unauthorized logins via photos, videos, or masks. When combined with gesture validation, facial landmark analysis, and real-time detection, the anti-spoofing module significantly enhances the system’s overall security and trustworthiness.
 
 **Confusion Matrix**
 
-![[Screenshot 2025-05-25 164930.png]]
+![Confusion_Matrix](screenshots/confusion_matrix.png)
 
 Lastly, Those are my accuracy plots:
 
-![[Screenshot 2025-05-24 120255 1.png]]
+![Accuracy](screenshots/accuracy.png)
 
 During the initial training phase of the anti-spoofing model, noticeable fluctuations were observed in the accuracy and validation performance, so I've decided the change the learning rate for better accuracy.
 
 This is my plot for learning rate:
-![[Screenshot 2025-05-26 143428.png]]
+
+![Learning_Rate](screenshots/learning_rate.png)
+
 
 #### Flow Chart of This Model
 
-![[ChatGPT Image May 29, 2025, 08_04_03 PM.png]]
+![FlowChart](screenshots/flowchart.png)
 
 1) A face image (usually 256x256) is input into the model.
 2) The image is cropped into **three different patches** at multiple scales (e.g., center face, eyes, and mouth)
@@ -173,7 +175,7 @@ This is my plot for learning rate:
 
 ## **Combination Of All Models(Full Pipeline)**
 
-![[Screenshot-2025-05-23-203638.png]]
+![Pipeline](screenshots/full_pipeline.png)
 
 - **YOLOv5** = Find faces in the image
 - **dlib** = Find detailed facial keypoints on those faces
