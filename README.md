@@ -3,7 +3,8 @@
 
 This project is completed for the **SE3508 Introduction to Artificial Intelligence** course at Muğla Sıtkı Koçman University under the supervision of **Dr. Selim Yılmaz**.
 ## **Overview**
-![[logo.png]]
+![Logo](static/images/logo.png)
+
 **Seamless-Pass** is a web-based face recognition and liveness detection system built entirely with custom-trained models, excluding any pretrained models for recognition or anti-spoofing. It performs **user registration and authentication** using a webcam with real-time face verification and gesture-based validation, ensuring robust liveness detection. I got the idea from a game named Cyberpunk 2077.
 
 This project leverages a combination of cutting-edge computer vision and deep learning technologies. **YOLOv5** is used for real-time face detection, while **dlib** and **MediaPipe** enable facial landmark tracking and gesture analysis. **OpenCV** supports image processing and camera operations. The system integrates **TensorFlow/PyTorch** for model inference, including anti-spoofing and gesture recognition, and uses **Flask** to provide a lightweight web interface for user interaction and face registration.
