@@ -32,7 +32,7 @@ seamless-pass/
 ├── my_face_landmark_68.dat         # Custom facial landmark detector
 ├── my_shape_predictor_68.dat       # Custom facial landmark detector 2
 │
-├── training_face_detection/        # Compononents of face detection with YOLOv5
+├── training_face_detection/        # Components of face detection with YOLOv5
 ├── known_faces/                    # Directory to store registered user images
 ├── model/                          # Custom CNN models
 ├── saved_models/                   # My models
@@ -154,7 +154,7 @@ Lastly, Those are my accuracy plots:
 
 ![Accuracy](screenshots/accuracy.png)
 
-During the initial training phase of the anti-spoofing model, noticeable fluctuations were observed in the accuracy and validation performance, so I've decided the change the learning rate for better accuracy.
+During the initial training phase of the anti-spoofing model, noticeable fluctuations were observed in the accuracy and validation performance, so I've decided to change the learning rate for better accuracy.
 
 This is my plot for learning rate:
 
