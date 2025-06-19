@@ -1,0 +1,4 @@
+train: C:/Users/Emir/Desktop/training model/datasets/images/train
+val: C:/Users/Emir/Desktop/training model/datasets/images/val
+nc: 1
+names: ['face']

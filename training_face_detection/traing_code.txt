@@ -1,0 +1,7 @@
+without weights:
+    python train.py --img 640 --batch-size 16 --epochs 100 --data ../data.yaml --cfg models/yolov5s.yaml --weights none --name face-detector-from-scratch --device 0
+
+with weights:
+    python train.py --img 640 --batch-size 16 --epochs 100 --data ../data.yaml --cfg models/yolov5s.yaml --weights yolov5s.pt --name face-detector-from-scratch
+
+the model will be saved at "runs/train/face-detector-from-scratch/weights/best.pt"!!!!!!
