@@ -32,6 +32,7 @@ seamless-pass/
 ├── my_face_landmark_68.dat         # Custom facial landmark detector
 ├── my_shape_predictor_68.dat       # Custom facial landmark detector 2
 │
+├── training_face_detection/        # Compononents of face detection with YOLOv5
 ├── known_faces/                    # Directory to store registered user images
 ├── model/                          # Custom CNN models
 ├── saved_models/                   # My models
