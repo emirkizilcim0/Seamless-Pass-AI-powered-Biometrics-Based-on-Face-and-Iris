@@ -56,8 +56,7 @@ seamless-pass/
 
 ### YOLOv5 Model Dataset: WIDER FACE Dataset
 
-I got the dataset from http://shuoyang1213.me/WIDERFACE/index.html 
-which is an official site of WIDER FACE dataset.
+I got the dataset from [WIDER FACE Dataset](http://shuoyang1213.me/WIDERFACE/index.html) which is an official site of WIDER FACE dataset.
 
 To prepare the WIDER FACE dataset for training a YOLOv5 model, the original annotations—which consist of image paths and face bounding box coordinates—must be converted into the YOLOv5 format. The WIDER FACE annotations include absolute coordinates (x, y, width, height) for each face in an image. These values are parsed and normalized relative to the image dimensions to fit YOLOv5’s requirement: `<class_id> <x_center> <y_center> <width> <height>`, all expressed as values between 0 and 1. For a face detection task, the `class_id` is typically set to 0.
 
@@ -68,8 +67,7 @@ One of the challenges encountered during the model conversion process was handli
 
 ### Dlib Model: iBUG dataset
 
-I got the dataset from https://ibug.doc.ic.ac.uk/resources/300-W/
-which is an official site of iBUG dataset.
+I got the dataset from [iBUG Dataset](https://ibug.doc.ic.ac.uk/resources/300-W/) which is an official site of iBUG dataset.
 
 To train the Dlib facial landmark detection model, the iBUG 300-W dataset was used, which provides `.pts` files containing 68 (x, y) landmark coordinates for each face. These `.pts` files were parsed to extract the (x, y) tuples corresponding to the facial keypoints. Each image and its corresponding landmarks were then formatted into an XML structure compatible with Dlib’s training requirements.
 
