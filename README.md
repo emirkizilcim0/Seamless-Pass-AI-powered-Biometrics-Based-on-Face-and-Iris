@@ -183,3 +183,22 @@ This is my plot for learning rate:
 - **MediaPipe** = Detect precise eye landmarks and iris position for better eye closure and gaze detection
 
 **Full pipeline** handles the task. Even if YOLO misses some detections (low recall), **Dlib and MediaPipe work well on the faces YOLO does find**
+
+## What is Working?
+
+The system successfully implements a full biometric authentication pipeline using face and iris analysis. Custom-trained models for face detection (YOLOv5), facial landmarks (Dlib), and anti-spoofing (CNN on CelebA-Spoof) work together to perform real-time registration and authentication via a web interface. The anti-spoofing module demonstrates strong classification performance, while MediaPipe iris tracking enhances gaze and eye-closure detection. Overall, the system is able to verify users and reject spoofing attempts under normal conditions.
+
+---
+
+## Limitations
+
+The YOLOv5 face detector, trained from scratch, still has relatively low mAP and can miss faces under challenging lighting or angles. The landmark detector is based on a small dataset and lacks robustness for unusual faces or occlusions. The anti-spoofing model may not generalize to advanced spoofing techniques beyond the CelebA-Spoof dataset. MediaPipe is used as a pre-trained helper, which partially conflicts with the goal of using fully custom models. Additionally, the system lacks normalization for camera distance and lighting, which can affect performance.
+
+---
+
+## Future Improvements
+
+Future improvements would include expanding the training datasets, tuning YOLOv5 hyperparameters, and replacing MediaPipe with a custom iris model. Deeper landmark networks (such as ResNet-based models) could improve facial landmark accuracy. Adding video-based anti-spoofing and depth analysis would enhance liveness detection. Finally, adapting the system for deployment on edge devices would enable broader real-world applications.
+
+---
+
